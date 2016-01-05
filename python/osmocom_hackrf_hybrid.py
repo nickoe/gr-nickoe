@@ -34,7 +34,6 @@ class osmocom_hackrf_hybrid(gr.basic_block):
 
     def forecast(self, noutput_items, ninput_items_required):
         #setup size of input_items[i] for work call
-        print("forecast called ", noutput_items)
         for i in range(len(ninput_items_required)):
             ninput_items_required[i] = noutput_items
 
