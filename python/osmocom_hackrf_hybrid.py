@@ -34,22 +34,22 @@ class osmocom_hackrf_hybrid(gr.basic_block):
 
     def forecast(self, noutput_items, ninput_items_required):
         #setup size of input_items[i] for work call
-        #print("forecast called")
+        print("forecast called ", noutput_items)
         for i in range(len(ninput_items_required)):
             ninput_items_required[i] = noutput_items
 
     def general_work(self, input_items, output_items):
-        output_items[0][:] = input_items[0]
-        
+        #buffer references
         in0 = input_items[0]
         out = output_items[0]
-        # <+signal processing here+>
-        out=in0
-        print("hello world_in0", in0)
-        print("hello world_out", out)
-        self.consume(0, len(in0))
-        #self.consume(0, len(input_items[0]))
-        #self.consume_each(len(input_items[0]))
-        return len(output_items[0])
 
+        #process data
+        out[:]=in0[0:len(out)]
+
+        #consume the inputs
+        self.consume(0, len(out)) #consume port 0 input
+        #self.consume_each(len(out)) //or shortcut to consume on all inputs
+
+        #return produced
+        return len(out)
 
