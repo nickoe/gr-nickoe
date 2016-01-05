@@ -39,7 +39,7 @@ class osmocom_hackrf_hybrid(gr.basic_block):
             ninput_items_required[i] = noutput_items
 
     def general_work(self, input_items, output_items):
-        output_items[0] = input_items[0]
+        output_items[0][:] = input_items[0]
         
         in0 = input_items[0]
         out = output_items[0]
