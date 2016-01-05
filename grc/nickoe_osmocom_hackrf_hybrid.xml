@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<block>
+  <name>Osmocom HackRF Hybrid</name>
+  <key>nickoe_osmocom_hackrf_hybrid</key>
+  <category>nickoe</category>
+  <import>import nickoe</import>
+  <make>nickoe.osmocom_hackrf_hybrid($sample_rate, $center_freq, $freq_corr, $dc_offset_mode, $iq_balance_mode, $gain_mode, $rf_gain, $if_gain, $bb_gain, $default_mode)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type -->
+  <param>
+    <name>Sample rate (sps)</name>
+    <key>sample_rate</key>
+    <value>samp_rate</value>
+    <type>real</type>
+  </param>
+  <param>
+    <name>Frequency (Hz)</name>
+    <key>center_freq</key>
+    <type>real</type>
+  </param>
+  <param>
+    <name>Frequency Corr. (ppm)</name>
+    <key>freq_corr</key>
+    <value>0</value>
+    <type>real</type>
+  </param>
+  <param>
+    <name>DC Offset Mode</name>
+    <key>dc_offset_mode</key>
+    <value>0</value>
+    <type>int</type>
+    <option>
+      <name>Off</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>Manual</name>
+      <key>1</key>
+    </option>
+    <option>
+      <name>Automatic</name>
+      <key>2</key>
+    </option>
+  </param>
+  <param>
+    <name>IQ Balance Mode</name>
+    <key>iq_balance_mode</key>
+    <value>0</value>
+    <type>int</type>
+    <option>
+      <name>Off</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>Manual</name>
+      <key>1</key>
+    </option>
+    <option>
+      <name>Automatic</name>
+      <key>2</key>
+    </option>
+  </param>
+  <param>
+    <name>Gain Mode</name>
+    <key>gain_mode</key>
+    <value>False</value>
+    <type>bool</type>
+    <option>
+      <name>Manual</name>
+      <key>False</key>
+    </option>
+    <option>
+      <name>Automatic</name>
+      <key>True</key>
+    </option>
+  </param>
+  <param>
+    <name>RF Gain (dB)</name>
+    <key>rf_gain</key>
+    <value>10</value>
+    <type>real</type>
+  </param>
+  <param>
+    <name>IF Gain (dB)</name>
+    <key>if_gain</key>
+    <value>20</value>
+    <type>real</type>
+  </param>
+  <param>
+    <name>BB Gain (dB)</name>
+    <key>bb_gain</key>
+    <value>20</value>
+    <type>real</type>
+  </param>
+  <param>
+    <name>Default Mode</name>
+    <key>default_mode</key>
+    <value>False</value>
+    <type>bool</type>
+    <option>
+      <name>Receive</name>
+      <key>False</key>
+    </option>
+    <option>
+      <name>Transmit</name>
+      <key>True</key>
+    </option>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+</block>
