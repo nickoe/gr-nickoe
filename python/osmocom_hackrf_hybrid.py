@@ -115,11 +115,15 @@ class Tx(gr.top_block, OptionalDriverMixin):
         return d
 
 
-def switch(tb):
-    tb.enable_driver()
-    print 'enabled', tb
-    time.sleep(2.0)
-    tb.disable_driver()
+def switch(rx, tx, select):
+    if (select):
+        print("Transmit mode")
+        rx.disable_driver()
+        tx.enable_driver()
+    else:
+        print("Receive mode")
+        tx.disable_driver()
+        rx.enable_driver()
 
 class osmocom_hackrf_hybrid(gr.basic_block):
     """
@@ -134,7 +138,8 @@ class osmocom_hackrf_hybrid(gr.basic_block):
         self.r = Rx()
         self.t.start()
         self.r.start()
-        switch(self.t)
+        self.default_mode = default_mode
+        switch(self.r, self.t, self.default_mode)
 
     def forecast(self, noutput_items, ninput_items_required):
         #setup size of input_items[i] for work call
@@ -153,15 +158,16 @@ class osmocom_hackrf_hybrid(gr.basic_block):
         self.consume(0, len(out)) #consume port 0 input
         #self.consume_each(len(out)) //or shortcut to consume on all inputs
 
-
-
-
-
-        switch(self.t)
-        switch(self.r)
-
-
-
         #return produced
         return len(out)
+
+    def set_mode(self, mode):
+        self.default_mode = mode
+        switch(self.r, self.t, mode)
+        print("MODE WAS SET")
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        print("__exit__")
+    def __del__(self):
+        print("__del__")
 
